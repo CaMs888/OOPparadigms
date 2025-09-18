@@ -1,0 +1,76 @@
+Conceptos de Programación Orientada a Objetos en el proyecto
+
+1. Método constructor
+   - Inicializan un objeto al crearse con new.
+   - Ejemplo: Autor(String fecha_nac, String nombre, String num_ID, Pais pais)
+     Clase Autor, línea 10.
+
+2. Métodos de acceso (getters y setters)
+   - Permiten leer (get) o modificar (set) atributos privados.
+   - Ejemplo: public String getNombre() y public void setNombre(String nombre)
+     Clase Autor, líneas 17-25.
+
+3. Método toString()
+   - Representa un objeto en forma de texto.
+   - Ejemplo: public String toString()
+     Clase Escultura, línea 47-60.
+
+4. Modificador static
+   - Indica que algo pertenece a la clase y no a un objeto específico.
+   - Ejemplo: public static void main(String[] args)
+     Clase Principal, línea 7.
+
+5. Modificador final
+   - Puede significar:
+     - Atributo inmutable: private final String cod_pais
+       Clase Pais, línea 5.
+     - Clase no heredable: public final class Pintura
+       Clase Pintura, línea 3.
+     - Método no sobreescribible: public final String infoBasica()
+       Clase Sala, línea 24.
+
+6. Visibilidades
+   - public, private, protected controlan el acceso a atributos y métodos.
+   - Ejemplo: public class Escultura;
+     Clase Escultura, línea 3.
+
+7. Multiplicidades (relaciones entre objetos)
+   - Un Autor pertenece a un Pais.
+   - Una Exposicion contiene una Pintura y una Escultura.
+   - Clase Autor, atributo Pais pais, línea 10.
+   - Clase Exposicion, atributos Pintura pintura y Escultura escultura, líneas 9-10.
+
+8. Sobreescritura de métodos (override)
+   - Una subclase redefine un método heredado.
+   - Ejemplo: public String acceso(String tipoUsuario)
+     Clase SalaInteractiva, línea 9.
+     Clase SalaAudiovisual, línea 9.
+
+9. Sobrecarga de métodos (overload)
+   - Dos métodos con el mismo nombre pero diferentes parámetros.
+   - Ejemplo:
+     - public String acceso() 
+       Clase Sala, línea 15.
+     - public String acceso(String tipoUsuario) 
+       Clase Sala, línea 19.
+
+10. Creación de objetos
+    - Uso de new para instanciar clases.
+    - Ejemplo: Autor autorPerez = new Autor(...);
+      Clase Principal, línea 11.
+
+11. Agregaciones (debe tener/puede que tenga)
+    - Una clase debe o puede tener referencias de otras.
+    - Ejemplo: Exposicion tiene un objeto Pintura y un objeto Escultura.
+      Clase Exposicion, líneas 9-10.
+
+12. Herencia
+    - Una clase extiende a otra para heredar atributos y métodos.
+    - Ejemplo: public class SalaInteractiva extends Sala
+      Clase SalaInteractiva, línea 3.
+
+13. Polimorfismo
+    - Un mismo método funciona distinto según el objeto.
+    - Ejemplo: sala.acceso("Visitante") en el arreglo de Sala[] puede ejecutar la versión de Sala
+      SalaInteractiva o SalaAudiovisual.
+      Clase Principal, líneas 42-47.

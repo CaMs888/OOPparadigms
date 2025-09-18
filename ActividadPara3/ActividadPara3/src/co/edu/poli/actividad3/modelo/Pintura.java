@@ -1,6 +1,7 @@
 package co.edu.poli.actividad3.modelo;
 
-public class Pintura {
+public final class Pintura {  // Clase que no se puede heredar (final)
+
     private String titulo;
     private String autor;
     private String tecnica;

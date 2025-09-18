@@ -1,6 +1,7 @@
 package co.edu.poli.actividad3.modelo;
 
 public class Sala {
+
     private Exposicion exposicion;
     private String nombre;
     private String numInt;
@@ -11,20 +12,37 @@ public class Sala {
         this.numInt = numInt;
     }
 
-    // Overloaded method without parameters
     public String acceso() {
         return "Acceso general permitido a la sala " + this.nombre + ".";
     }
 
-    // Overloaded method with a String parameter
     public String acceso(String tipoUsuario) {
         return "Acceso de " + tipoUsuario + " permitido a la sala " + this.nombre + ".";
     }
 
+    // Método que no se puede sobreescribir (final)
+    public final String infoBasica() {
+        return "Sala: " + nombre + ", Número interno: " + numInt;
+    }
+
+    public Sala getSalaEspecial() {
+        return this;
+    }
+
+    // Getters y Setters
     public Exposicion getExposicion() { return exposicion; }
     public void setExposicion(Exposicion exposicion) { this.exposicion = exposicion; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getNumInt() { return numInt; }
     public void setNumInt(String numInt) { this.numInt = numInt; }
+
+    @Override
+    public String toString() {
+        return "Sala{" +
+                "nombre='" + nombre + '\'' +
+                ", numInt='" + numInt + '\'' +
+                ", exposicion=" + (exposicion != null ? exposicion.getNombre() : "null") +
+                '}';
+    }
 }
