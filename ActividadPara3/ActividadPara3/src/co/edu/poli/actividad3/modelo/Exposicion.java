@@ -1,5 +1,8 @@
 package co.edu.poli.actividad3.modelo;
 
+/**
+ * Representa una exposición que puede contener una pintura y/o una escultura.
+ */
 public class Exposicion {
     private String nombre;
     private int numeroSalas;
@@ -33,4 +36,9 @@ public class Exposicion {
     public void setPintura(Pintura pintura) { this.pintura = pintura; }
     public Escultura getEscultura() { return escultura; }
     public void setEscultura(Escultura escultura) { this.escultura = escultura; }
+
+    @Override
+    public String toString() {
+        return "Exposicion{" + "nombre='" + nombre + '\'' + ", numeroSalas=" + numeroSalas + ", abierta=" + abiertaAlPublico + '}';
+    }
 }
