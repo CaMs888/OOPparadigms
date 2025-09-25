@@ -1,12 +1,22 @@
 package co.edu.poli.actividad3.modelo;
 
-public final class Pintura {  // Clase que no se puede heredar (final)
-
+/**
+ * Representa una pintura simple.
+ */
+public class Pintura {
     private String titulo;
-    private String autor;
+    private String autor; // en tu código anterior Pintura usa String autor
     private String tecnica;
     private int anioCreacion;
 
+    /**
+     * Constructor de Pintura.
+     *
+     * @param titulo título de la pintura
+     * @param autor autor como String (puede adaptarse a Autor si se desea)
+     * @param tecnica técnica usada
+     * @param anioCreacion año de producción
+     */
     public Pintura(String titulo, String autor, String tecnica, int anioCreacion) {
         this.titulo = titulo;
         this.autor = autor;
@@ -14,11 +24,8 @@ public final class Pintura {  // Clase que no se puede heredar (final)
         this.anioCreacion = anioCreacion;
     }
 
-    public int getEdadActual() {
-        return 2025 - anioCreacion;
-    }
+    public int getEdadActual() { return 2025 - anioCreacion; }
 
-    // Getters y Setters
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public String getAutor() { return autor; }
@@ -27,4 +34,9 @@ public final class Pintura {  // Clase que no se puede heredar (final)
     public void setTecnica(String tecnica) { this.tecnica = tecnica; }
     public int getAnioCreacion() { return anioCreacion; }
     public void setAnioCreacion(int anioCreacion) { this.anioCreacion = anioCreacion; }
+
+    @Override
+    public String toString() {
+        return "Pintura{" + "titulo='" + titulo + '\'' + ", autor='" + autor + '\'' + ", anio=" + anioCreacion + '}';
+    }
 }
