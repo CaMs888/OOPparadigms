@@ -44,4 +44,9 @@ public abstract class Sala {
     public String toString() {
         return this.getClass().getSimpleName() + "{numInt='" + numInt + "', nombre='" + nombre + "'}";
     }
+
+	public char[] infoBasica() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,3 +1,4 @@
+// SalaAudiovisual.java
 package co.edu.poli.actividad3.modelo;
 
 public class SalaAudiovisual extends Sala {
@@ -8,12 +9,6 @@ public class SalaAudiovisual extends Sala {
 
     @Override
     public String acceso(String tipoUsuario) {
-        return "Acceso permitido a la sala audiovisual para " + tipoUsuario + ". Disfrute la proyección.";
-    }
-
-    @Override
-    public Sala getSalaEspecial() {
-        // Retorna una nueva SalaAudiovisual especial
-        return new SalaAudiovisual(getExposicion(), getNombre() + " - VIP", getNumInt());
+        return "Acceso especial audiovisual para " + tipoUsuario + " en la sala " + getNombre();
     }
 }
