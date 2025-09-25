@@ -1,5 +1,8 @@
 package co.edu.poli.actividad3.modelo;
 
+/**
+ * Representa una escultura con atributos básicos.
+ */
 public class Escultura {
     private String nombre;
     private double tamanio;
@@ -10,6 +13,9 @@ public class Escultura {
     private Autor autor;
     private int anioCreacion;
 
+    /**
+     * Constructor completo de Escultura.
+     */
     public Escultura(String nombre, double tamanio, String color, String material, String tecnica, String serial, Autor autor, int anioCreacion) {
         this.nombre = nombre;
         this.tamanio = tamanio;
@@ -21,11 +27,9 @@ public class Escultura {
         this.anioCreacion = anioCreacion;
     }
 
-    public int getEdadActual() {
-        return 2025 - anioCreacion;
-    }
+    public int getEdadActual() { return 2025 - anioCreacion; }
 
-    // Getters y Setters
+    // Getters y Setters ...
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public double getTamanio() { return tamanio; }
@@ -45,17 +49,6 @@ public class Escultura {
 
     @Override
     public String toString() {
-        return "Escultura{" +
-                "nombre='" + nombre + '\'' +
-                ", tamanio=" + tamanio +
-                ", color='" + color + '\'' +
-                ", material='" + material + '\'' +
-                ", tecnica='" + tecnica + '\'' +
-                ", serial='" + serial + '\'' +
-                ", autor=" + autor.getNombre() +
-                ", paisAutor=" + autor.getPais().getNombre() +
-                ", anioCreacion=" + anioCreacion +
-                ", edadActual=" + getEdadActual() +
-                '}';
+        return "Escultura{" + "nombre='" + nombre + '\'' + ", autor=" + (autor!=null?autor.getNombre():"null") + ", anio=" + anioCreacion + '}';
     }
 }
