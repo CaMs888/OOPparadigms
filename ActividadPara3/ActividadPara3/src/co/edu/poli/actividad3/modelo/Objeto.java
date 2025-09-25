@@ -1,5 +1,8 @@
 package co.edu.poli.actividad3.modelo;
 
+/**
+ * Representa un objeto de una exposición.
+ */
 public class Objeto {
     private String nombre;
     private String fechaCreacion;
@@ -17,11 +20,8 @@ public class Objeto {
         this.anioCreacion = anioCreacion;
     }
 
-    public int getEdadActual() {
-        return 2025 - anioCreacion;
-    }
+    public int getEdadActual() { return 2025 - anioCreacion; }
 
-    // Getters y Setters
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getFechaCreacion() { return fechaCreacion; }
@@ -34,4 +34,9 @@ public class Objeto {
     public void setAutor(Autor autor) { this.autor = autor; }
     public int getAnioCreacion() { return anioCreacion; }
     public void setAnioCreacion(int anioCreacion) { this.anioCreacion = anioCreacion; }
+
+    @Override
+    public String toString() {
+        return "Objeto{" + "nombre='" + nombre + '\'' + ", anio=" + anioCreacion + '}';
+    }
 }
