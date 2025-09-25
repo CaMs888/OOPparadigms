@@ -1,6 +1,6 @@
 package co.edu.poli.actividad3.modelo;
 
-public class Sala {
+public abstract class Sala {
 
     private Exposicion exposicion;
     private String nombre;
@@ -20,7 +20,6 @@ public class Sala {
         return "Acceso de " + tipoUsuario + " permitido a la sala " + this.nombre + ".";
     }
 
-    // Método que no se puede sobreescribir (final)
     public final String infoBasica() {
         return "Sala: " + nombre + ", Número interno: " + numInt;
     }
@@ -29,7 +28,6 @@ public class Sala {
         return this;
     }
 
-    // Getters y Setters
     public Exposicion getExposicion() { return exposicion; }
     public void setExposicion(Exposicion exposicion) { this.exposicion = exposicion; }
     public String getNombre() { return nombre; }
@@ -46,3 +44,5 @@ public class Sala {
                 '}';
     }
 }
+
+
