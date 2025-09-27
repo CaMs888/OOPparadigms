@@ -1,39 +1,52 @@
-// ImplementacionOperacionCRUD.java
 package co.edu.poli.actividad3.servicios;
+
+import co.edu.poli.actividad3.modelo.Sala;
 
 public class ImplementacionOperacionCRUD implements OperacionCRUD {
 
-    public ImplementacionOperacionCRUD(int i) {
-		// TODO Auto-generated constructor stub
-	}
+    private static final int CAPACIDAD = 100;
+    private static final Sala[] almacenamiento = new Sala[CAPACIDAD];
+    private static int cantidad = 0;
 
-	public ImplementacionOperacionCRUD() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-    public void create(Object obj) {
-        System.out.println("Objeto creado: " + obj);
+    @Override
+    public boolean crear(Sala sala) {
+        if (cantidad >= CAPACIDAD) return false;
+        almacenamiento[cantidad++] = sala;
+        return true;
     }
 
     @Override
-    public Object read(String id) {
-        System.out.println("Leyendo objeto con id: " + id);
+    public boolean eliminar(String numInt) {
+        for (int i = 0; i < cantidad; i++) {
+            if (almacenamiento[i].getNumInt().equals(numInt)) {
+                for (int j = i; j < cantidad - 1; j++) {
+                    almacenamiento[j] = almacenamiento[j + 1];
+                }
+                almacenamiento[--cantidad] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean actualizar(Sala sala) {
+        for (int i = 0; i < cantidad; i++) {
+            if (almacenamiento[i].getNumInt().equals(sala.getNumInt())) {
+                almacenamiento[i] = sala;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Sala leer(String numInt) {
+        for (int i = 0; i < cantidad; i++) {
+            if (almacenamiento[i].getNumInt().equals(numInt)) {
+                return almacenamiento[i];
+            }
+        }
         return null;
     }
-
-    @Override
-    public void update(Object obj) {
-        System.out.println("Objeto actualizado: " + obj);
-    }
-
-    @Override
-    public void delete(String id) {
-        System.out.println("Objeto eliminado con id: " + id);
-    }
-
-	public void listarTodo() {
-		// TODO Auto-generated method stub
-		
-	}
 }
