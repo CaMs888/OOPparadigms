@@ -4,23 +4,38 @@ import co.edu.poli.actividad3.modelo.*;
 import co.edu.poli.actividad3.servicios.*;
 
 public class Principal {
+
     public static void main(String[] args) {
+
+        // --- Datos base mínimos ---
+        Pais paisColombia = new Pais("CO", "Colombia");
+        Autor autorPerez = new Autor("1980-05-12", "Carlos Perez", "123456789", paisColombia);
+
+        Pintura miPintura = new Pintura("El Grito", "óleo sobre cartón", 1893, "Expresionismo", autorPerez, "P123", 1893);
+        Escultura miEscultura = new Escultura("El Pensador", 1.8, "Marrón", "Bronce", "Fundición", "ESC123", autorPerez, 1902);
+
+        Exposicion miExposicion = new Exposicion("Maestros Modernos", "Carlos Perez", "Arte Moderno", "Español", "Pintura/Escultura", "EXP001", true, miEscultura, miPintura, new Escultura[]{miEscultura});
+
+        // --- Crear salas ---
+        SalaInteractiva salaInteractiva = new SalaInteractiva(miExposicion, "Sala de Experiencias", "S-301",
+                true, true, 15, "VR");
+        SalaAudiovisual salaAudiovisual = new SalaAudiovisual(miExposicion, "Sala Audiovisual", "S-302",
+                true, true, 80, "Documentales");
+
+        // --- CRUD ---
         ImplementacionOperacionCRUD crud = new ImplementacionOperacionCRUD();
 
-        Sala sala1 = new SalaInteractiva(null, "Sala Interactiva 1", "S1",
-                true, true, 10, "VR");
-        Sala sala2 = new SalaAudiovisual(null, "Sala Audiovisual 1", "S2",
-                true, true, 50, "Películas");
+        System.out.println("\n--- Pruebas CRUD ---");
+        crud.crear(salaInteractiva);   // Insertar SalaInteractiva
+        crud.crear(salaAudiovisual);   // Insertar SalaAudiovisual
 
-        crud.crear(sala1);
-        crud.crear(sala2);
+        crud.leer("S-301");             // Consultar por ID (numInt)
+        crud.actualizar(new SalaInteractiva(miExposicion, "Sala de Realidad Virtual", "S-301",
+                true, true, 20, "VR avanzada")); // Actualizar SalaInteractiva
+        crud.eliminar("S-302");         // Eliminar SalaAudiovisual
 
-        System.out.println("Listado inicial:");
-        System.out.println(crud.leer("S1"));
-        System.out.println(crud.leer("S2"));
-
-        crud.eliminar("S1");
-        System.out.println("Después de eliminar S1:");
-        System.out.println(crud.leer("S1"));
+        // --- Imprimir todas las salas después de CRUD ---
+        System.out.println("\n--- Estado final del arreglo de Salas ---");
+        crud.listarTodo();
     }
 }
