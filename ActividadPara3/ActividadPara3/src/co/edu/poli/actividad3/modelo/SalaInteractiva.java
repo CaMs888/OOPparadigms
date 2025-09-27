@@ -8,7 +8,13 @@ public class SalaInteractiva extends Sala {
     }
 
     @Override
-    public String acceso(String tipoUsuario) {
-        return "Acceso especial interactivo para " + tipoUsuario + " en la sala " + getNombre();
+    protected String acceso() {
+        return "Acceso general a la sala interactiva " + getNombre();
+    }
+
+    @Override
+    protected String acceso(String tipoUsuario) {
+        return "Acceso especial interactivo para " + tipoUsuario + 
+               " en la sala " + getNombre();
     }
 }
