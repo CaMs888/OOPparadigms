@@ -1,240 +1,260 @@
-// ==================================================================================== 
-// PAQUETE: co.edu.poli.actividad3.vista
-// ====================================================================================
-
-// ====================================================================================
-// CLASE: Principal
-// ====================================================================================
-
 package co.edu.poli.actividad3.vista;
 
 import co.edu.poli.actividad3.modelo.*;
-import co.edu.poli.actividad3.servicios.*;
+import co.edu.poli.actividad3.servicios.ImplementacionOperacionCRUD;
+import java.util.Scanner;
 
-/**
- * Clase Principal para probar las operaciones CRUD del sistema.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
 public class Principal {
     
-    /**
-     * Método main - Punto de entrada del programa
-     * @param args Argumentos de línea de comandos
-     */
+    private static ImplementacionOperacionCRUD crudService;
+    private static Scanner scanner;
+    private static boolean salir;
+
     public static void main(String[] args) {
+        crudService = new ImplementacionOperacionCRUD();
+        scanner = new Scanner(System.in);
+        salir = false;
         
-        System.out.println("╔══════════════════════════════════════════════════════════╗");
-        System.out.println("║      SISTEMA DE GESTIÓN DE MUSEO - OPERACIONES CRUD      ║");
-        System.out.println("╚══════════════════════════════════════════════════════════╝\n");
+        System.out.println("Iniciando Sistema de Gestion del Museo...");
+        System.out.println("Cargando datos existentes...");
         
-        // Crear instancia del servicio CRUD
-        ImplementacionOperacionCRUD crudService = new ImplementacionOperacionCRUD();
-        
-        // Crear objetos auxiliares
-        Pais colombia = new Pais("CO", "Colombia");
-        Pais italia = new Pais("IT", "Italia");
-        Pais españa = new Pais("ES", "España");
-        
-        Autor autorPerez = new Autor("1980-05-12", "Carlos Perez", "12345678", colombia);
-        Autor autorDaVinci = new Autor("1452-04-15", "Leonardo da Vinci", "IT001", italia);
-        Autor autorPicasso = new Autor("1881-10-25", "Pablo Picasso", "ES001", españa);
-        
-        // Crear objetos de arte
-        Pintura pintura1 = new Pintura("Mona Lisa", "Óleo sobre tabla", 1503, "Retrato", "PIN001", "1503");
-        pintura1.setAutor(autorDaVinci);
-        
-        Pintura pintura2 = new Pintura("Guernica", "Óleo sobre lienzo", 1937, "Cubismo", "PIN002", "1937");
-        pintura2.setAutor(autorPicasso);
-        
-        Escultura escultura1 = new Escultura("David", 5.17, "Blanco", "Mármol", "6000 kg", "Tallado", "ESC001", "1504");
-        escultura1.setAutor(autorDaVinci);
-        
-        Objeto objeto1 = new Objeto("Vasija Precolombina", "Muisca", "800 d.C.", "Vasija ceremonial", "Cerámica", "OBJ001", "800");
-        
-        // Crear exposiciones
-        Exposicion expo1 = new Exposicion("Arte Renacentista", "Leonardo da Vinci", "Renacimiento", "Italiano", "Permanente", "EXP001", false);
-        expo1.setPintura(pintura1);
-        
-        Exposicion expo2 = new Exposicion("Arte del Siglo XX", "Pablo Picasso", "Cubismo", "Español", "Temporal", "EXP002", false);
-        expo2.setPintura(pintura2);
-        
-        Exposicion expo3 = new Exposicion("Culturas Precolombinas", "Anónimo", "Historia", "Español", "Permanente", "EXP003", false);
-        expo3.setObjeto(objeto1);
-        
-        // ═══════════════════════════════════════════════════════════
-        // OPERACIÓN CREATE - Crear Salas
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("┌─────────────────────────────────────────────┐");
-        System.out.println("│      OPERACIÓN CREATE - Crear Salas         │");
-        System.out.println("└─────────────────────────────────────────────┘");
-        
-        // Crear SalaCine 1
-        SalaCine salaCine1 = new SalaCine(expo1, "Sala de Cine Principal", "SC001", "IMAX", "4K", false, 120);
-        crudService.create(salaCine1);
-        
-        // Crear SalaAudiovisual 1
-        SalaAudiovisual salaAud1 = new SalaAudiovisual(expo2, "Auditorio Moderno", "SA001", "LED", "Full HD", false, 90, true, true, 150, "Documentales");
-        crudService.create(salaAud1);
-        
-        // Crear SalaCine 2
-        SalaCine salaCine2 = new SalaCine(expo3, "Sala de Proyecciones", "SC002", "Estándar", "HD", false, 60);
-        crudService.create(salaCine2);
-        
-        // Intentar crear sala duplicada (debe fallar)
-        System.out.println("\n  Probando crear sala con ID duplicado...");
-        SalaCine salaDuplicada = new SalaCine(expo1, "Sala Duplicada", "SC001", "Test", "Test", false, 30);
-        crudService.create(salaDuplicada);
-        
-        System.out.println("\n" + crudService.obtenerEstadisticas() + "\n");
-        
-        // ═══════════════════════════════════════════════════════════
-        // OPERACIÓN READ - Consultar Salas por ID
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("┌─────────────────────────────────────────────┐");
-        System.out.println("│      OPERACIÓN READ - Consultar por ID      │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
-        
-        System.out.println(" Buscando sala con ID 'SC001'...");
-        Sala salaEncontrada = crudService.read("SC001");
-        if (salaEncontrada != null) {
-            System.out.println(" Encontrada: " + salaEncontrada);
-            System.out.println("   Exposición: " + salaEncontrada.getExposicion());
-        } else {
-            System.out.println(" No encontrada");
-        }
-        
-        System.out.println("\n Buscando sala con ID 'SA001'...");
-        Sala salaEncontrada2 = crudService.read("SA001");
-        if (salaEncontrada2 != null) {
-            System.out.println(" Encontrada: " + salaEncontrada2);
-            System.out.println("   Exposición: " + salaEncontrada2.getExposicion());
-        } else {
-            System.out.println(" No encontrada");
-        }
-        
-        System.out.println("\n Buscando sala con ID inexistente 'XXX999'...");
-        Sala salaInexistente = crudService.read("XXX999");
-        if (salaInexistente == null) {
-            System.out.println(" No encontrada (comportamiento esperado)");
-        }
-        
-        // ═══════════════════════════════════════════════════════════
-        // LISTAR TODAS - Mostrar todas las salas
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│      LISTAR TODAS - Mostrar todas las salas │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
-        
-        Sala[] todasLasSalas = crudService.listar();
-        System.out.println("Total de salas almacenadas: " + todasLasSalas.length + "\n");
-        
-        for (int i = 0; i < todasLasSalas.length; i++) {
-            System.out.printf("  %d. %s%n", (i + 1), todasLasSalas[i]);
-            System.out.printf("     Tipo: %s%n", todasLasSalas[i].getClass().getSimpleName());
-            System.out.println("     " + todasLasSalas[i].acceso("visitante"));
-            System.out.println();
-        }
-        
-        // ═══════════════════════════════════════════════════════════
-        // OPERACIÓN UPDATE - Actualizar Sala
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("┌─────────────────────────────────────────────┐");
-        System.out.println("│     OPERACIÓN UPDATE - Actualizar Sala      │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
-        
-        System.out.println(" Actualizando sala con ID 'SC001'...");
-        SalaCine salaActualizada = new SalaCine(expo1, "Sala de Cine Principal RENOVADA", 
-                                                "SC001", "IMAX 3D", "8K", false, 150);
-        
-        boolean actualizado = crudService.actualizar(salaActualizada);
-        
-        if (actualizado) {
-            System.out.println("\n Verificando actualización...");
-            Sala salaVerificacion = crudService.read("SC001");
-            System.out.println("Sala después de actualizar: " + salaVerificacion);
-        }
-        
-        System.out.println("\n  Intentando actualizar sala inexistente 'XXX999'...");
-        SalaCine salaInexistenteUpd = new SalaCine(expo1, "No existe", "XXX999",
-                                                   "Test", "Test", false, 30);
-        crudService.actualizar(salaInexistenteUpd);
-        
-        // ═══════════════════════════════════════════════════════════
-        // OPERACIÓN DELETE - Eliminar Sala
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│      OPERACIÓN DELETE - Eliminar Sala       │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
-        
-        System.out.println(" Estado antes de eliminar:");
-        System.out.println(crudService.obtenerEstadisticas());
-        
-        System.out.println("\n  Eliminando sala con ID 'SC002'...");
-        boolean eliminado = crudService.eliminar("SC002");
-        
-        if (eliminado) {
-            System.out.println("\n Verificando eliminación...");
-            Sala salaEliminada = crudService.read("SC002");
-            if (salaEliminada == null) {
-                System.out.println(" Confirmado: Sala eliminada correctamente");
+        mostrarMenu();
+    }
+
+    public static void mostrarMenu() {
+        while (!salir) {
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println("       SISTEMA DE GESTION DEL MUSEO");
+            System.out.println("=".repeat(50));
+            System.out.println("1. Crear Sala (maximo 5 atributos)");
+            System.out.println("2. Listar todas las salas");
+            System.out.println("3. Buscar sala por ID");
+            System.out.println("4. Modificar sala");
+            System.out.println("5. Eliminar sala");
+            System.out.println("6. Guardar datos en archivo");
+            System.out.println("7. Cargar datos desde archivo");
+            System.out.println("8. Mostrar estadisticas");
+            System.out.println("9. Salir");
+            System.out.println("=".repeat(50));
+            System.out.print("Seleccione una opcion: ");
+
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 1:
+                    crearSala();
+                    break;
+                case 2:
+                    listarSalas();
+                    break;
+                case 3:
+                    buscarSala();
+                    break;
+                case 4:
+                    modificarSala();
+                    break;
+                case 5:
+                    eliminarSala();
+                    break;
+                case 6:
+                    guardarArchivo();
+                    break;
+                case 7:
+                    cargarArchivo();
+                    break;
+                case 8:
+                    mostrarEstadisticas();
+                    break;
+                case 9:
+                    salir = true;
+                    System.out.println("¡Hasta pronto!");
+                    break;
+                default:
+                    System.out.println("Opcion no valida. Intente nuevamente.");
             }
         }
+        scanner.close();
+    }
+
+    private static void crearSala() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        CREAR NUEVA SALA");
+        System.out.println("-".repeat(40));
         
-        System.out.println("\n  Intentando eliminar sala inexistente 'XXX999'...");
-        crudService.eliminar("XXX999");
+        System.out.print("Ingrese numero interno: ");
+        String numInt = scanner.nextLine();
         
-        // ═══════════════════════════════════════════════════════════
-        // ESTADO FINAL DEL SISTEMA
-        // ═══════════════════════════════════════════════════════════
+        System.out.print("Ingrese nombre de la sala: ");
+        String nombre = scanner.nextLine();
         
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│        ESTADO FINAL DEL SISTEMA             │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
+        System.out.print("Ingrese tipo de pantalla: ");
+        String tipoPantalla = scanner.nextLine();
+        
+        System.out.print("Ingrese formato de proyeccion: ");
+        String formatoProyeccion = scanner.nextLine();
+        
+        System.out.print("Ingrese duracion promedio (minutos): ");
+        int duracion = leerEntero();
+        
+        Exposicion exposicion = new Exposicion();
+        exposicion.setNombre("Exposicion para " + nombre);
+        exposicion.setTema("General");
+        
+        SalaCine nuevaSala = new SalaCine(
+            exposicion, nombre, numInt, 
+            tipoPantalla, formatoProyeccion, 
+            false, duracion
+        );
+        
+        if (crudService.create(nuevaSala)) {
+            System.out.println("Sala creada exitosamente!");
+        } else {
+            System.out.println("Error al crear la sala.");
+        }
+    }
+
+    private static void listarSalas() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        LISTA DE SALAS");
+        System.out.println("-".repeat(40));
+        
+        Sala[] salas = crudService.listar(); // Ahora usa Sala[] en lugar de List<Sala>
+        
+        if (salas.length == 0) {
+            System.out.println("No hay salas registradas.");
+        } else {
+            for (int i = 0; i < salas.length; i++) {
+                Sala sala = salas[i];
+                System.out.printf("%d. %s (ID: %s)%n", 
+                    i + 1, sala.getNombre(), sala.getNum_int());
+                System.out.println("   Tipo: " + sala.getClass().getSimpleName());
+                System.out.println("   " + sala.acceso("visitante"));
+                System.out.println();
+            }
+            System.out.printf("Total: %d salas%n", salas.length);
+        }
+    }
+
+    private static void buscarSala() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        BUSCAR SALA");
+        System.out.println("-".repeat(40));
+        
+        System.out.print("Ingrese el numero interno de la sala: ");
+        String numInt = scanner.nextLine();
+        
+        Sala sala = crudService.read(numInt);
+        
+        if (sala != null) {
+            System.out.println("Sala encontrada:");
+            System.out.println("   Nombre: " + sala.getNombre());
+            System.out.println("   ID: " + sala.getNum_int());
+            System.out.println("   Tipo: " + sala.getClass().getSimpleName());
+            System.out.println("   Acceso: " + sala.acceso("visitante"));
+        } else {
+            System.out.println("No se encontro ninguna sala con ese ID.");
+        }
+    }
+
+    private static void modificarSala() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        MODIFICAR SALA");
+        System.out.println("-".repeat(40));
+        
+        System.out.print("Ingrese el numero interno de la sala a modificar: ");
+        String numInt = scanner.nextLine();
+        
+        Sala salaExistente = crudService.read(numInt);
+        
+        if (salaExistente == null) {
+            System.out.println("No se encontro la sala.");
+            return;
+        }
+        
+        System.out.println("Sala actual: " + salaExistente.getNombre());
+        System.out.print("Nuevo nombre (Enter para mantener actual): ");
+        String nuevoNombre = scanner.nextLine();
+        
+        if (!nuevoNombre.trim().isEmpty()) {
+            salaExistente.setNombre(nuevoNombre);
+        }
+        
+        if (crudService.actualizar(salaExistente)) {
+            System.out.println("Sala modificada exitosamente!");
+        } else {
+            System.out.println("Error al modificar la sala.");
+        }
+    }
+
+    private static void eliminarSala() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        ELIMINAR SALA");
+        System.out.println("-".repeat(40));
+        
+        System.out.print("Ingrese el numero interno de la sala a eliminar: ");
+        String numInt = scanner.nextLine();
+        
+        System.out.print("¿Esta seguro de eliminar esta sala? (s/n): ");
+        String confirmacion = scanner.nextLine();
+        
+        if (confirmacion.equalsIgnoreCase("s")) {
+            if (crudService.eliminar(numInt)) {
+                System.out.println("Sala eliminada exitosamente!");
+            } else {
+                System.out.println("Error al eliminar la sala.");
+            }
+        } else {
+            System.out.println("Eliminacion cancelada.");
+        }
+    }
+
+    private static void guardarArchivo() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        GUARDAR EN ARCHIVO");
+        System.out.println("-".repeat(40));
+        
+        if (crudService.serializar()) {
+            System.out.println("Datos guardados exitosamente en archivo binario.");
+        } else {
+            System.out.println("Error al guardar los datos.");
+        }
+    }
+
+    private static void cargarArchivo() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        CARGAR DESDE ARCHIVO");
+        System.out.println("-".repeat(40));
+        
+        if (crudService.deserializar()) {
+            System.out.println("Datos cargados exitosamente desde archivo.");
+        } else {
+            System.out.println("Error al cargar los datos.");
+        }
+    }
+
+    private static void mostrarEstadisticas() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("        ESTADISTICAS");
+        System.out.println("-".repeat(40));
         
         System.out.println(crudService.obtenerEstadisticas());
         
-        System.out.println("\n  Salas restantes en el sistema:");
-        Sala[] salasFinales = crudService.listar();
-        
-        for (int i = 0; i < salasFinales.length; i++) {
-            System.out.printf("  %d. %s%n", (i + 1), salasFinales[i]);
+        Sala[] salas = crudService.listar();
+        if (salas.length > 0) {
+            System.out.println("\nDetalle de salas:");
+            for (Sala sala : salas) {
+                System.out.println(" - " + sala.getNombre() + " (" + sala.getNum_int() + ")");
+            }
         }
-        
-        // ═══════════════════════════════════════════════════════════
-        // PRUEBA DE CAPACIDAD - Inserción masiva
-        // ═══════════════════════════════════════════════════════════
-        
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│      PRUEBA DE CAPACIDAD                    │");
-        System.out.println("└─────────────────────────────────────────────┘\n");
-        
-        System.out.println("Agregando múltiples salas para probar inserción automática...\n");
-        
-        for (int i = 3; i <= 10; i++) {
-            SalaCine nuevaSala = new SalaCine(
-                expo1, 
-                "Sala de Prueba " + i, 
-                "SP" + String.format("%03d", i),
-                "Digital", 
-                "HD", 
-                false, 
-                60
-            );
-            crudService.create(nuevaSala);
+    }
+
+    private static int leerEntero() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada invalida. Ingrese un numero: ");
+            }
         }
-        
-        System.out.println("\n" + crudService.obtenerEstadisticas());
-        
-        System.out.println("\n╔══════════════════════════════════════════════════════════╗");
-        System.out.println("║        ¡PRUEBAS CRUD COMPLETADAS EXITOSAMENTE!           ║");
-        System.out.println("╚══════════════════════════════════════════════════════════╝");
     }
 }

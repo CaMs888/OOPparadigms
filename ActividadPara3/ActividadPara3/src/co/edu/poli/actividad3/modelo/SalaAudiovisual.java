@@ -1,53 +1,19 @@
-// ====================================================================================
-// CLASE: SalaAudiovisual (Extiende SalaCine)
-// ====================================================================================
-
 package co.edu.poli.actividad3.modelo;
 
+import java.io.Serializable;
 
-/**
- * Clase que representa una sala audiovisual del museo.
- * Extiende SalaCine.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
-public class SalaAudiovisual extends SalaCine {
+public class SalaAudiovisual extends SalaCine implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    /** Indica si tiene proyector */
     private boolean tieneProyector;
-    
-    /** Indica si tiene sistema de sonido */
     private boolean tieneSistemaSonido;
-    
-    /** Capacidad de butacas */
     private int capacidadButacas;
-    
-    /** Tipo de contenido */
     private String tipoContenido;
 
-    /**
-     * Constructor por defecto
-     */
     public SalaAudiovisual() {
         super();
     }
 
-    /**
-     * Constructor completo
-     * @param exposicion Exposición asociada
-     * @param nombre Nombre de la sala
-     * @param num_int Número interno
-     * @param tipoPantalla Tipo de pantalla
-     * @param formatoProyeccion Formato de proyección
-     * @param tienePeliculasAdultos Si tiene películas para adultos
-     * @param duracionPromedioProyeccion Duración promedio
-     * @param tieneProyector Si tiene proyector
-     * @param tieneSistemaSonido Si tiene sistema de sonido
-     * @param capacidadButacas Capacidad de butacas
-     * @param tipoContenido Tipo de contenido
-     */
     public SalaAudiovisual(Exposicion exposicion, String nombre, String num_int, String tipoPantalla, String formatoProyeccion, boolean tienePeliculasAdultos, int duracionPromedioProyeccion, boolean tieneProyector, boolean tieneSistemaSonido, int capacidadButacas, String tipoContenido) {
         super(exposicion, nombre, num_int, tipoPantalla, formatoProyeccion, tienePeliculasAdultos, duracionPromedioProyeccion);
         this.tieneProyector = tieneProyector;
@@ -56,7 +22,6 @@ public class SalaAudiovisual extends SalaCine {
         this.tipoContenido = tipoContenido;
     }
 
-    // Getters y Setters
     public boolean isTieneProyector() { return tieneProyector; }
     public void setTieneProyector(boolean tieneProyector) { this.tieneProyector = tieneProyector; }
 

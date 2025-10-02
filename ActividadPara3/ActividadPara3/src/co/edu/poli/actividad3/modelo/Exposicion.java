@@ -1,64 +1,24 @@
-// ====================================================================================
-// CLASE: Exposicion
-// ====================================================================================
-
 package co.edu.poli.actividad3.modelo;
 
-/**
- * Clase que representa una exposición en el museo.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
-public class Exposicion {
+import java.io.Serializable;
+
+public class Exposicion implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    /** Nombre de la exposición */
     private String nombre;
-    
-    /** Autor de la exposición */
     private String autor;
-    
-    /** Tema de la exposición */
     private String tema;
-    
-    /** Idioma de la exposición */
     private String idioma;
-    
-    /** Tipo de exposición */
     private String tipo;
-    
-    /** Serial único de la exposición */
     private String serial;
-    
-    /** Indica si es extranjero */
     private boolean esExtranjero;
-    
-    /** Objeto asociado */
     private Objeto objeto;
-    
-    /** Pintura asociada */
     private Pintura pintura;
-    
-    /** Escultura asociada */
     private Escultura escultura;
 
-    /**
-     * Constructor por defecto
-     */
     public Exposicion() {
     }
 
-    /**
-     * Constructor completo
-     * @param nombre Nombre de la exposición
-     * @param autor Autor de la exposición
-     * @param tema Tema de la exposición
-     * @param idioma Idioma de la exposición
-     * @param tipo Tipo de exposición
-     * @param serial Serial único
-     * @param esExtranjero Indica si es extranjero
-     */
     public Exposicion(String nombre, String autor, String tema, String idioma, String tipo, String serial, boolean esExtranjero) {
         this.nombre = nombre;
         this.autor = autor;
@@ -69,7 +29,6 @@ public class Exposicion {
         this.esExtranjero = esExtranjero;
     }
 
-    // Getters y Setters
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 

@@ -1,62 +1,23 @@
-// ====================================================================================
-// CLASE: Escultura
-// ====================================================================================
-
 package co.edu.poli.actividad3.modelo;
 
-/**
- * Clase que representa una escultura del museo.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
-public class Escultura {
+import java.io.Serializable;
+
+public class Escultura implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    /** Nombre de la escultura */
     private String nombre;
-    
-    /** Tamaño de la escultura */
     private double tamaño;
-    
-    /** Color de la escultura */
     private String color;
-    
-    /** Material de la escultura */
     private String material;
-    
-    /** Peso de la escultura */
     private String peso;
-    
-    /** Técnica utilizada */
     private String tecnica;
-    
-    /** Serial de la escultura */
     private String serial;
-    
-    /** Autor de la escultura */
     private Autor autor;
-    
-    /** Año de creación */
     private String añoCreacion;
 
-    /**
-     * Constructor por defecto
-     */
     public Escultura() {
     }
 
-    /**
-     * Constructor completo
-     * @param nombre Nombre de la escultura
-     * @param tamaño Tamaño de la escultura
-     * @param color Color de la escultura
-     * @param material Material de la escultura
-     * @param peso Peso de la escultura
-     * @param tecnica Técnica utilizada
-     * @param serial Serial único
-     * @param añoCreacion Año de creación
-     */
     public Escultura(String nombre, double tamaño, String color, String material,
                      String peso, String tecnica, String serial, String añoCreacion) {
         this.nombre = nombre;
@@ -69,10 +30,6 @@ public class Escultura {
         this.añoCreacion = añoCreacion;
     }
 
-    /**
-     * Calcula la edad actual de la escultura
-     * @return Edad en años
-     */
     public int calcularEdadActual() {
         try {
             int añoActual = 2024;
@@ -83,7 +40,6 @@ public class Escultura {
         }
     }
 
-    // Getters y Setters
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 

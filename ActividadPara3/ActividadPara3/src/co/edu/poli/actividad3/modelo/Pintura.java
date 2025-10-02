@@ -1,54 +1,21 @@
-// ====================================================================================
-// CLASE: Pintura
-// ====================================================================================
-
 package co.edu.poli.actividad3.modelo;
 
-/**
- * Clase que representa una pintura del museo.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
-public class Pintura {
+import java.io.Serializable;
+
+public class Pintura implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    /** Título de la pintura */
     private String titulo;
-    
-    /** Técnica utilizada */
     private String tecnica;
-    
-    /** Año de producción */
     private int anio_produccion;
-    
-    /** Tipo de pintura */
     private String tipo;
-    
-    /** Autor de la pintura */
     private Autor autor;
-    
-    /** Serial de la pintura */
     private String serial;
-    
-    /** Año de creación */
     private String anioCreacion;
 
-    /**
-     * Constructor por defecto
-     */
     public Pintura() {
     }
 
-    /**
-     * Constructor completo
-     * @param titulo Título de la pintura
-     * @param tecnica Técnica utilizada
-     * @param anio_produccion Año de producción
-     * @param tipo Tipo de pintura
-     * @param serial Serial único
-     * @param anioCreacion Año de creación
-     */
     public Pintura(String titulo, String tecnica, int anio_produccion, String tipo, String serial, String anioCreacion) {
         this.titulo = titulo;
         this.tecnica = tecnica;
@@ -58,16 +25,11 @@ public class Pintura {
         this.anioCreacion = anioCreacion;
     }
 
-    /**
-     * Calcula la edad actual de la pintura
-     * @return Edad en años
-     */
     public int calcularEdadActual() {
         int anioActual = 2024;
         return anioActual - anio_produccion;
     }
 
-    // Getters y Setters
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
 
@@ -91,6 +53,6 @@ public class Pintura {
 
     @Override
     public String toString() {
-        return "Pintura: " + titulo + " - Técnica: " + tecnica + " (" + anio_produccion + ")";
+        return "Pintura: " + titulo + " - Tecnica: " + tecnica + " (" + anio_produccion + ")";
     }
 }

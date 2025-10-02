@@ -1,43 +1,18 @@
-// ====================================================================================
-// CLASE: Autor
-// ====================================================================================
-
 package co.edu.poli.actividad3.modelo;
 
-/**
- * Clase que representa un autor de obras del museo.
- * 
- * @author Tu Nombre
- * @version 1.0
- * @since 2024
- */
-public class Autor {
+import java.io.Serializable;
+
+public class Autor implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    /** Fecha de nacimiento del autor */
     private String fecha_nac;
-    
-    /** Nombre del autor */
     private String nombre;
-    
-    /** Número de identificación */
     private String num_ID;
-    
-    /** País del autor */
     private Pais pais;
 
-    /**
-     * Constructor por defecto
-     */
     public Autor() {
     }
 
-    /**
-     * Constructor completo
-     * @param fecha_nac Fecha de nacimiento
-     * @param nombre Nombre del autor
-     * @param num_ID Número de identificación
-     * @param pais País del autor
-     */
     public Autor(String fecha_nac, String nombre, String num_ID, Pais pais) {
         this.fecha_nac = fecha_nac;
         this.nombre = nombre;
@@ -45,7 +20,6 @@ public class Autor {
         this.pais = pais;
     }
 
-    // Getters y Setters
     public String getFecha_nac() { return fecha_nac; }
     public void setFecha_nac(String fecha_nac) { this.fecha_nac = fecha_nac; }
 
