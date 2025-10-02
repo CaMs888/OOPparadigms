@@ -133,7 +133,7 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD {
     }
 
     public String obtenerEstadisticas() {
-        return String.format("Estadisticas: %d salas en memoria", almacenamiento.size());
+        return String.format("Salas guardadas: %d salas en memoria", almacenamiento.size());
     }
     
     public boolean serializar() {

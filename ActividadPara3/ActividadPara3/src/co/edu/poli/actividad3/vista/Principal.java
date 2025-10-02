@@ -33,7 +33,7 @@ public class Principal {
             System.out.println("5. Eliminar sala");
             System.out.println("6. Guardar datos en archivo");
             System.out.println("7. Cargar datos desde archivo");
-            System.out.println("8. Mostrar estadisticas");
+            System.out.println("8. Detalles de salas guardadas");
             System.out.println("9. Salir");
             System.out.println("=".repeat(50));
             System.out.print("Seleccione una opcion: ");
@@ -234,7 +234,7 @@ public class Principal {
 
     private static void mostrarEstadisticas() {
         System.out.println("\n" + "-".repeat(40));
-        System.out.println("        ESTADISTICAS");
+        System.out.println("        DETALLES GUARDADOS");
         System.out.println("-".repeat(40));
         
         System.out.println(crudService.obtenerEstadisticas());
