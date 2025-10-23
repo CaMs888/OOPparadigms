@@ -5,7 +5,7 @@ import co.edu.poli.actividad3.servicios.ImplementacionOperacionCRUD;
 import java.util.Scanner;
 
 public class Principal {
-    
+
     private static ImplementacionOperacionCRUD crudService;
     private static Scanner scanner;
     private static boolean salir;
@@ -14,10 +14,10 @@ public class Principal {
         crudService = new ImplementacionOperacionCRUD();
         scanner = new Scanner(System.in);
         salir = false;
-        
+
         System.out.println("Iniciando Sistema de Gestion del Museo...");
         System.out.println("Cargando datos existentes...");
-        
+
         mostrarMenu();
     }
 
@@ -38,8 +38,8 @@ public class Principal {
             System.out.println("=".repeat(50));
             System.out.print("Seleccione una opcion: ");
 
-            int opcion = leerEntero();
-            
+            int opcion = leerEntero(); // protegemos la entrada
+
             switch (opcion) {
                 case 1:
                     crearSala();
@@ -67,7 +67,7 @@ public class Principal {
                     break;
                 case 9:
                     salir = true;
-                    System.out.println("¡Hasta pronto!");
+                    System.out.println("Hasta pronto.");
                     break;
                 default:
                     System.out.println("Opcion no valida. Intente nuevamente.");
@@ -80,34 +80,34 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        CREAR NUEVA SALA");
         System.out.println("-".repeat(40));
-        
+
         System.out.print("Ingrese numero interno: ");
         String numInt = scanner.nextLine();
-        
+
         System.out.print("Ingrese nombre de la sala: ");
         String nombre = scanner.nextLine();
-        
+
         System.out.print("Ingrese tipo de pantalla: ");
         String tipoPantalla = scanner.nextLine();
-        
+
         System.out.print("Ingrese formato de proyeccion: ");
         String formatoProyeccion = scanner.nextLine();
-        
+
         System.out.print("Ingrese duracion promedio (minutos): ");
-        int duracion = leerEntero();
-        
+        int duracion = leerEntero(); // protegido contra errores
+
         Exposicion exposicion = new Exposicion();
         exposicion.setNombre("Exposicion para " + nombre);
         exposicion.setTema("General");
-        
+
         SalaCine nuevaSala = new SalaCine(
-            exposicion, nombre, numInt, 
-            tipoPantalla, formatoProyeccion, 
-            false, duracion
+                exposicion, nombre, numInt,
+                tipoPantalla, formatoProyeccion,
+                false, duracion
         );
-        
+
         if (crudService.create(nuevaSala)) {
-            System.out.println("Sala creada exitosamente!");
+            System.out.println("Sala creada exitosamente.");
         } else {
             System.out.println("Error al crear la sala.");
         }
@@ -117,16 +117,16 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        LISTA DE SALAS");
         System.out.println("-".repeat(40));
-        
-        Sala[] salas = crudService.listar(); // Ahora usa Sala[] en lugar de List<Sala>
-        
+
+        Sala[] salas = crudService.listar();
+
         if (salas.length == 0) {
             System.out.println("No hay salas registradas.");
         } else {
             for (int i = 0; i < salas.length; i++) {
                 Sala sala = salas[i];
-                System.out.printf("%d. %s (ID: %s)%n", 
-                    i + 1, sala.getNombre(), sala.getNum_int());
+                System.out.printf("%d. %s (ID: %s)%n",
+                        i + 1, sala.getNombre(), sala.getNum_int());
                 System.out.println("   Tipo: " + sala.getClass().getSimpleName());
                 System.out.println("   " + sala.acceso("visitante"));
                 System.out.println();
@@ -139,12 +139,12 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        BUSCAR SALA");
         System.out.println("-".repeat(40));
-        
+
         System.out.print("Ingrese el numero interno de la sala: ");
         String numInt = scanner.nextLine();
-        
+
         Sala sala = crudService.read(numInt);
-        
+
         if (sala != null) {
             System.out.println("Sala encontrada:");
             System.out.println("   Nombre: " + sala.getNombre());
@@ -160,27 +160,27 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        MODIFICAR SALA");
         System.out.println("-".repeat(40));
-        
+
         System.out.print("Ingrese el numero interno de la sala a modificar: ");
         String numInt = scanner.nextLine();
-        
+
         Sala salaExistente = crudService.read(numInt);
-        
+
         if (salaExistente == null) {
             System.out.println("No se encontro la sala.");
             return;
         }
-        
+
         System.out.println("Sala actual: " + salaExistente.getNombre());
         System.out.print("Nuevo nombre (Enter para mantener actual): ");
         String nuevoNombre = scanner.nextLine();
-        
+
         if (!nuevoNombre.trim().isEmpty()) {
             salaExistente.setNombre(nuevoNombre);
         }
-        
+
         if (crudService.actualizar(salaExistente)) {
-            System.out.println("Sala modificada exitosamente!");
+            System.out.println("Sala modificada exitosamente.");
         } else {
             System.out.println("Error al modificar la sala.");
         }
@@ -190,16 +190,16 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        ELIMINAR SALA");
         System.out.println("-".repeat(40));
-        
+
         System.out.print("Ingrese el numero interno de la sala a eliminar: ");
         String numInt = scanner.nextLine();
-        
+
         System.out.print("¿Esta seguro de eliminar esta sala? (s/n): ");
         String confirmacion = scanner.nextLine();
-        
+
         if (confirmacion.equalsIgnoreCase("s")) {
             if (crudService.eliminar(numInt)) {
-                System.out.println("Sala eliminada exitosamente!");
+                System.out.println("Sala eliminada exitosamente.");
             } else {
                 System.out.println("Error al eliminar la sala.");
             }
@@ -212,7 +212,7 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        GUARDAR EN ARCHIVO");
         System.out.println("-".repeat(40));
-        
+
         if (crudService.serializar()) {
             System.out.println("Datos guardados exitosamente en archivo binario.");
         } else {
@@ -224,7 +224,7 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        CARGAR DESDE ARCHIVO");
         System.out.println("-".repeat(40));
-        
+
         if (crudService.deserializar()) {
             System.out.println("Datos cargados exitosamente desde archivo.");
         } else {
@@ -236,9 +236,9 @@ public class Principal {
         System.out.println("\n" + "-".repeat(40));
         System.out.println("        DETALLES GUARDADOS");
         System.out.println("-".repeat(40));
-        
+
         System.out.println(crudService.obtenerEstadisticas());
-        
+
         Sala[] salas = crudService.listar();
         if (salas.length > 0) {
             System.out.println("\nDetalle de salas:");
@@ -248,13 +248,25 @@ public class Principal {
         }
     }
 
+   // ============================================================
+
     private static int leerEntero() {
         while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
+           try {
+                String entrada = scanner.nextLine();
+                double valor = Double.parseDouble(entrada);
+                if (valor % 1 != 0) {
+                    System.out.print("Advertencia: se esperaba un numero entero, no un decimal. Ingrese nuevamente: ");
+                    continue;
+                }
+                return Integer.parseInt(entrada);
             } catch (NumberFormatException e) {
-                System.out.print("Entrada invalida. Ingrese un numero: ");
+                System.out.print("Advertencia: ingrese un numero entero valido: ");
+            } catch (Exception e) {
+                System.out.print("Error inesperado. Intente nuevamente: ");
             }
         }
     }
+
+   
 }
